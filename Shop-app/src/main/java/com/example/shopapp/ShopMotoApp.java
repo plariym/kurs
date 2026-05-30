@@ -12,6 +12,8 @@ import java.util.List;
 public class ShopMotoApp extends Application {
     public static Stage primaryStage;
     public static Scene customers;
+    public static Scene sales;
+    public static Scene kindMoto;
 
     @Override
     public void start(Stage stage) throws IOException {

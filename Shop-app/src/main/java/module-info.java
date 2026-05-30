@@ -14,4 +14,6 @@ module com.example.shopapp {
     exports com.example.shopapp.controller;
     opens com.example.shopapp.controller to javafx.fxml;
     opens com.example.shopapp.util to org.hibernate.orm.core;
+    exports com.example.shopapp.controller.client;
+    opens com.example.shopapp.controller.client to javafx.fxml;
 }
