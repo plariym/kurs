@@ -6,7 +6,7 @@
     <session-factory>
         <!-- Set URL -->
         <property name =
-                          "hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres2</property>
+                          "hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres 2</property>
         <!-- Set User Name -->
         <property name = "hibernate.connection.username">postgres</property>
         <!-- Set Password -->
@@ -19,5 +19,6 @@
         <!-- Optional: Auto-generate schema -->
         <!-- <property name = "hibernate.hbm2ddl.auto">create</property> -->
         <mapping class="com.example.shopapp.model.Customer" />
+        <mapping class="com.example.shopapp.model.KindMoto" />
     </session-factory>
 </hibernate-configuration>

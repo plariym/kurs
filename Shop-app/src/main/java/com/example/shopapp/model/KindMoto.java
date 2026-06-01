@@ -43,19 +43,23 @@ public class KindMoto {
     }
 
     public void setPower(String powerText) {
-        if (!powerText.)
-        this.power = power;
+        if (!powerText.isEmpty() && powerText.matches("-?\\d+")) {
+            int power = Integer.parseInt(powerText);
+            this.power = power;
+        } else {
+            throw new IllegalArgumentException("Цена должна быть целым числом!");
+        }
     }
 
     public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Integer priceText) {
-        if (!priceText.isEmpty() && priceText.matches("-?\\d+")){
+    public void setPrice(String priceText) {
+        if (!priceText.isEmpty() && priceText.matches("-?\\d+")) {
             int price = Integer.parseInt(priceText);
             this.price = price;
-        }else {
+        } else {
             throw new IllegalArgumentException("Цена должна быть целым числом!");
         }
 
