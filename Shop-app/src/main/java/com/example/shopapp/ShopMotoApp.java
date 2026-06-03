@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
 
 public class ShopMotoApp extends Application {
     public static Stage primaryStage;
@@ -20,7 +19,7 @@ public class ShopMotoApp extends Application {
     public void start(Stage stage) throws IOException {
         primaryStage=stage;
         customers=createScene("Customer-view.fxml");
-        //kindMoto=createScene("Kind-moto-view.fxml");
+        kindMoto=createScene("kind-moto-view.fxml");
 
         primaryStage.setMinWidth(1200);
         primaryStage.setMinHeight(675);
