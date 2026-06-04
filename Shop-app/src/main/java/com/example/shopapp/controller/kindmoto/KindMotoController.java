@@ -58,7 +58,7 @@ public class KindMotoController {
             dialogStage.initOwner(ShopMotoApp.primaryStage);
             dialogStage.setMinWidth(400);
             dialogStage.setScene(new Scene(loader.load()));
-            dialogStage.setTitle("Добавить вид кредита");
+            dialogStage.setTitle("Добавить вид мотоцикла");
             AddEditKindMotoDialog controller = loader.getController();
             controller.setAddDialogStage(dialogStage);
             dialogStage.showAndWait();
@@ -105,7 +105,7 @@ public class KindMotoController {
                 dialogStage.initOwner(ShopMotoApp.primaryStage);
                 dialogStage.setMinWidth(400);
                 dialogStage.setScene(new Scene(loader.load()));
-                dialogStage.setTitle("Редактировать вид кредита");
+                dialogStage.setTitle("Редактировать вид мотоцикла");
                 AddEditKindMotoDialog controller = loader.getController();
                 controller.setEditDialogStage(dialogStage, currentItem.getKindMoto());
                 dialogStage.showAndWait();
@@ -156,7 +156,7 @@ public class KindMotoController {
 
     public void initialize() {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        vidColumn.setCellValueFactory(new PropertyValueFactory<>("class"));
+        vidColumn.setCellValueFactory(new PropertyValueFactory<>("vid"));
         powerColumn.setCellValueFactory(new PropertyValueFactory<>("power"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         motoObservable = FXCollections.observableArrayList();

@@ -1,0 +1,62 @@
+-- public.customers определение
+
+-- Drop table
+
+-- DROP TABLE public.customers;
+
+CREATE TABLE public.customers (
+	customer_id serial4 NOT NULL,
+	fio varchar(255) NOT NULL,
+	passport varchar(255) NOT NULL,
+	phone varchar(20) NOT NULL,
+	address varchar(255) NOT NULL,
+	CONSTRAINT customers_pk PRIMARY KEY (customer_id)
+);
+
+
+-- public.sales определение
+
+-- Drop table
+
+-- DROP TABLE public.sales;
+
+CREATE TABLE public.sales (
+	sale_id serial4 NOT NULL,
+	kind_moto_id int4 NOT NULL,
+	customer_id int4 NOT NULL,
+	price int4 NOT NULL,
+	"date" date NOT NULL,
+	CONSTRAINT sales_pk PRIMARY KEY (sale_id)
+);
+
+
+-- public.kind_moto определение
+
+-- Drop table
+
+-- DROP TABLE public.kind_moto;
+
+CREATE TABLE public.kind_moto (
+	kind_moto_id int4 DEFAULT nextval('type_motorcycle_type_motorcycle_id_seq'::regclass) NOT NULL,
+	"name" varchar(255) NOT NULL,
+	"class" varchar(255) NOT NULL,
+	"Power(h/p)" int4 NOT NULL,
+	price int4 NOT NULL,
+	CONSTRAINT type_motorcycle_pk PRIMARY KEY (kind_moto_id)
+);
+INSERT INTO public.customers (fio,passport,phone,address) VALUES
+	 ('Беляев Андрей Даниилович','5769 084572','+79487187642','552618, Белгородская область, город Истра, въезд Гоголя, 22'),
+	 ('Филиппов Эмиль Маркович','7791 898652','+79509648520','337206, Магаданская область, город Талдом, спуск Чехова, 91'),
+	 ('Скворцов Александр Егорович','2193 193809','+79201169467','982184, Сахалинская область, город Солнечногорск, пер. Ломоносова, 95'),
+	 ('Максимов Андрей Савельевич','6535 818034','+79622108889','287874, Ленинградская область, город Кашира, пер. Балканская, 45'),
+	 ('Киселева Вера Фёдоровна','9891 875100','+79779758148','372555, Ивановская область, город Серебряные Пруды, бульвар Бухарестская, 03');
+INSERT INTO public.sales (kind_moto_id,customer_id,price,"date") VALUES
+	 (1,2,70000,'2023-12-29'),
+	 (3,4,350000,'2024-03-30'),
+	 (2,4,345999,'2026-04-23');
+INSERT INTO public.kind_moto ("name","class","Power(h/p)",price) VALUES
+	 ('Alpha Swift 110','Мопед',7,75000),
+	 ('Kayo T2 250 MX','Эндуро',21,170000),
+	 ('Honda CBR600RR','Спорт',120,350000),
+	 ('Honda Dio AF27','Скутер',6,45000),
+	 ('KTM Adventure 1190','Тур-Эндуро',150,1000000);

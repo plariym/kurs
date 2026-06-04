@@ -12,8 +12,7 @@
         <!-- Set Password -->
         <property name = "hibernate.connection.password">root</property>
         <!-- Set Driver Name -->
-        <property name =
-                          "hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name = "hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name = "hibernate.show_sql">true</property>
         <!-- Optional: Auto-generate schema -->

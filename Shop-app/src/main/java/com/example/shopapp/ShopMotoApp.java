@@ -19,13 +19,19 @@ public class ShopMotoApp extends Application {
     public void start(Stage stage) throws IOException {
         primaryStage=stage;
         customers=createScene("Customer-view.fxml");
-        kindMoto=createScene("kind-moto-view.fxml");
+        kindMoto=createScene("kind-moto-view.fxml"); // <- поменял на название fxml
+        //sales=createScene(""); <- эту строчку можешь
+        // раскомментировать когда будешь делать 3 таблицу
 
         primaryStage.setMinWidth(1200);
         primaryStage.setMinHeight(675);
         primaryStage.setTitle("Клиенты");
 
         customers.getStylesheets().add("base-styles.css");
+        kindMoto.getStylesheets().add("base-styles.css");
+        //sales.getStylesheets().add("base-styles.css"); <- эту строчку можешь
+        // раскомментировать когда будешь делать 3 таблицу
+
         primaryStage.setScene(customers);
         primaryStage.show();
     }

@@ -19,10 +19,10 @@ import java.util.Optional;
 public class CustomerController {
     private List<Customer> customers;
     private ObservableList<CustomerTableItem> creditsObservable;
-    @FXML
-    void btnSales(ActionEvent event) {
-        ShopMotoApp.primaryStage.setScene(ShopMotoApp.sales);
-    }
+    //@FXML
+    //void btnSales(ActionEvent event) {
+    //    ShopMotoApp.primaryStage.setScene(ShopMotoApp.sales);
+    //}
     @FXML
     void btnKindMoto(ActionEvent event) {
         ShopMotoApp.primaryStage.setScene(ShopMotoApp.kindMoto);
