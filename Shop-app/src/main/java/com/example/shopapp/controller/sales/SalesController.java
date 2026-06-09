@@ -1,8 +1,8 @@
-package com.example.shopapp.controller.kindmoto;
+package com.example.shopapp.controller.sales;
 
-import com.example.shopapp.ShopMotoApp; 
-import com.example.shopapp.model.KindMoto;
-import com.example.shopapp.service.KindMotoService;
+import com.example.shopapp.ShopMotoApp;
+import com.example.shopapp.model.Sales;
+import com.example.shopapp.service.SalesService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,56 +10,68 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-public class KindMotoController {
-
-    private List<KindMoto> kindMotos;
+public class SalesController {
 
     @FXML
     private Button btnCustomers;
 
     @FXML
-    private TableColumn<?, ?> vidColumn;
+    private Button btnKindMoto;
 
-    @FXML
-    private Button btnSales;
     @FXML
     private Button btnOff;
 
     @FXML
-    private TableView<KindMotoTableItem> kindMotoTable;
+    private Button btnSales;
 
     @FXML
-    private Button btnKindMoto;
+    private TableColumn<?, ?> customerColumn;
 
     @FXML
-    private TableColumn<?, ?> nameColumn;
+    private TableColumn<?, ?> dateColumn;
 
     @FXML
-    private TableColumn<?, ?> powerColumn;
+    private TableColumn<?, ?> kindMotoColumn;
 
     @FXML
     private TableColumn<?, ?> priceColumn;
-    private ObservableList<KindMotoTableItem> motoObservable;
 
     @FXML
-    void btnAddKindMoto(ActionEvent event) {
+    private TableView<SalesTableItem> salesTable;
+
+    private List<Sales> sales;
+    private ObservableList<SalesTableItem> salesObservable;
+
+    public void initialize() {
+        kindMotoColumn.setCellValueFactory(new PropertyValueFactory<>("kindMoto"));
+        customerColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        salesObservable = FXCollections.observableArrayList();
+        salesTable.setItems(salesObservable);
+
+        updateList();
+    }
+
+    @FXML
+    void btnAddSalesAction(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(ShopMotoApp.class.getResource("add-edit-kind-moto-dialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(ShopMotoApp.class.getResource("add-edit-sales-dialog.fxml"));
             Stage dialogStage = new Stage();
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(ShopMotoApp.primaryStage);
             dialogStage.setMinWidth(400);
             dialogStage.setScene(new Scene(loader.load()));
-            dialogStage.setTitle("Добавить вид мотоцикла");
-            AddEditKindMotoDialog controller = loader.getController();
+            dialogStage.setTitle("добавить Продажу");
+            AddEditSalesDialog controller = loader.getController();
             controller.setAddDialogStage(dialogStage);
             dialogStage.showAndWait();
             updateList();
@@ -68,21 +80,23 @@ public class KindMotoController {
         }
     }
 
+
+
     @FXML
-    void btnDeleteKindMoto(ActionEvent event) {
-        KindMotoTableItem currentItem = kindMotoTable.getSelectionModel().getSelectedItem();
-        int currentItemId = kindMotoTable.getSelectionModel().getSelectedIndex();
+    void btnDeleteSalesAction(ActionEvent event) {
+        SalesTableItem currentItem = salesTable.getSelectionModel().getSelectedItem();
+        int currentItemId = salesTable.getSelectionModel().getSelectedIndex();
         if (currentItemId != -1) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Подтверждение удаления");
             alert.setHeaderText("Удаление записи");
-            alert.setContentText("Вы действительно хотите удалить \"" + currentItem.getName() + "\"?");
+            alert.setContentText("Вы действительно хотите удалить \"" + currentItem.getKindMoto() + "\"?");
 
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                new KindMotoService().delete(currentItem.getKindMoto());
-                kindMotoTable.getItems().remove(currentItemId);
+                new SalesService().delete(currentItem.getSales());
+                salesTable.getItems().remove(currentItemId);
             }
         }
         else {
@@ -94,20 +108,20 @@ public class KindMotoController {
     }
 
     @FXML
-    void btnEditKindMoto(ActionEvent event) {
-        KindMotoTableItem currentItem = kindMotoTable.getSelectionModel().getSelectedItem();
-        int currentItemId = kindMotoTable.getSelectionModel().getSelectedIndex();
+    void btnEditSalesAction(ActionEvent event) {
+        SalesTableItem currentItem = salesTable.getSelectionModel().getSelectedItem();
+        int currentItemId = salesTable.getSelectionModel().getSelectedIndex();
         if (currentItemId != -1) {
             try {
-                FXMLLoader loader = new FXMLLoader(ShopMotoApp.class.getResource("add-edit-kind-moto-dialog.fxml"));
+                FXMLLoader loader = new FXMLLoader(ShopMotoApp.class.getResource("add-edit-sales-dialog.fxml"));
                 Stage dialogStage = new Stage();
                 dialogStage.initModality(Modality.WINDOW_MODAL);
                 dialogStage.initOwner(ShopMotoApp.primaryStage);
                 dialogStage.setMinWidth(400);
                 dialogStage.setScene(new Scene(loader.load()));
-                dialogStage.setTitle("Редактировать вид мотоцикла");
-                AddEditKindMotoDialog controller = loader.getController();
-                controller.setEditDialogStage(dialogStage, currentItem.getKindMoto());
+                dialogStage.setTitle("Редактировать продажи");
+                AddEditSalesDialog controller = loader.getController();
+                controller.setEditDialogStage(dialogStage, currentItem.getSales());
                 dialogStage.showAndWait();
                 updateList();
             } catch (IOException e) {
@@ -121,29 +135,27 @@ public class KindMotoController {
         }
     }
 
-
-
     @FXML
     void btnOff(ActionEvent event) {
         ShopMotoApp.primaryStage.close();
     }
 
     @FXML
-    void btnUpdateKindMoto(ActionEvent event) {
+    void btnUpdateSalesAction(ActionEvent event) {
         updateList();
     }
 
     public void updateList() {
         try {
-            kindMotos = new KindMotoService().findAll();
-            motoObservable.clear();
+            sales = new SalesService().findAll();
+            salesObservable.clear();
 
-            if (kindMotos != null) {
-                for (KindMoto KindMoto : kindMotos) {
-                    motoObservable.add(new KindMotoTableItem(KindMoto));
+            if (sales != null) {
+                for (Sales Sales : sales) {
+                    salesObservable.add(new SalesTableItem(Sales));
                 }
             }
-            kindMotoTable.refresh();
+            salesTable.refresh();
 
         } catch (Exception e) {
             System.err.println("Ошибка в updateList():");
@@ -151,22 +163,20 @@ public class KindMotoController {
         }
     }
 
-    public void initialize() {
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        vidColumn.setCellValueFactory(new PropertyValueFactory<>("vid"));
-        powerColumn.setCellValueFactory(new PropertyValueFactory<>("power"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        motoObservable = FXCollections.observableArrayList();
-        kindMotoTable.setItems(motoObservable);
-        updateList();
-    }
 
-
-    public void btnCustomers(ActionEvent actionEvent) {
+    @FXML
+    void btnCustomers(ActionEvent event) {
         ShopMotoApp.primaryStage.setScene(ShopMotoApp.customers);
     }
+
     @FXML
-    void btnSalersAction(ActionEvent event) {
+    void btnSalesAction(ActionEvent event) {
         ShopMotoApp.primaryStage.setScene(ShopMotoApp.sales);
     }
+
+    @FXML
+    void btnKindMotoAction(ActionEvent event) {
+        ShopMotoApp.primaryStage.setScene(ShopMotoApp.kindMoto);
+    }
+
 }

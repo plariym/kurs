@@ -19,10 +19,32 @@ import java.util.Optional;
 public class CustomerController {
     private List<Customer> customers;
     private ObservableList<CustomerTableItem> creditsObservable;
-    //@FXML
-    //void btnSales(ActionEvent event) {
-    //    ShopMotoApp.primaryStage.setScene(ShopMotoApp.sales);
-    //}
+
+    @FXML
+    private TableColumn<?, ?> addressColumn;
+    @FXML
+    private TableColumn<?, ?> passportColumn;
+    @FXML
+    private TableColumn<?, ?> phoneColumn;
+    @FXML
+    private TableView<CustomerTableItem> customersTable;
+    @FXML
+    private TableColumn<Customer, String> fioColumn;
+    private final CustomerDao customerDao = new CustomerDao();
+    public void initialize() {
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        passportColumn.setCellValueFactory(new PropertyValueFactory<>("passport"));
+        fioColumn.setCellValueFactory(new PropertyValueFactory<>("fio"));
+        creditsObservable = FXCollections.observableArrayList();
+        customersTable.setItems(creditsObservable);
+        updateList();
+    }
+
+    @FXML
+    void btnSalersAction(ActionEvent event) {
+        ShopMotoApp.primaryStage.setScene(ShopMotoApp.sales);
+    }
     @FXML
     void btnKindMoto(ActionEvent event) {
         ShopMotoApp.primaryStage.setScene(ShopMotoApp.kindMoto);
@@ -118,26 +140,6 @@ public class CustomerController {
     }
     @FXML
     void btnUpdateCustomers(ActionEvent event) {
-        updateList();
-    }
-    @FXML
-    private TableColumn<?, ?> addressColumn;
-    @FXML
-    private TableColumn<?, ?> passportColumn;
-    @FXML
-    private TableColumn<?, ?> phoneColumn;
-    @FXML
-    private TableView<CustomerTableItem> customersTable;
-    @FXML
-    private TableColumn<Customer, String> fioColumn;
-    private final CustomerDao customerDao = new CustomerDao();
-    public void initialize() {
-        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-        passportColumn.setCellValueFactory(new PropertyValueFactory<>("passport"));
-        fioColumn.setCellValueFactory(new PropertyValueFactory<>("fio"));
-        creditsObservable = FXCollections.observableArrayList();
-        customersTable.setItems(creditsObservable);
         updateList();
     }
 }

@@ -37,7 +37,7 @@ CREATE TABLE public.sales (
 -- DROP TABLE public.kind_moto;
 
 CREATE TABLE public.kind_moto (
-	kind_moto_id int4 DEFAULT nextval('type_motorcycle_type_motorcycle_id_seq'::regclass) NOT NULL,
+	kind_moto_id serial4 NOT NULL,
 	"name" varchar(255) NOT NULL,
 	"class" varchar(255) NOT NULL,
 	"Power(h/p)" int4 NOT NULL,

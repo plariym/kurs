@@ -11,20 +11,18 @@ public class KindMoto {
     @Column(name = "kind_moto_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer kindCreditId;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "class")
     private String vid;
+
     @Column(name = "Power(h/p)")
     private Integer power;
+
     @Column(name = "price")
     private Integer price;
-
-    // Геттеры и сеттеры
-    @Override
-    public String toString() {
-        return name;
-    }
 
     public String getVid() {
         return vid;
@@ -83,5 +81,10 @@ public class KindMoto {
         } else {
             throw new IllegalArgumentException("Название не должно быть пустым");
         }
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
