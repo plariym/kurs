@@ -38,12 +38,19 @@ public class AddEditSalesDialog implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        customerComboBox.getItems().addAll(allCustomer);
         kindMotoComboBox.getItems().addAll(allKindMoto);
+        customerComboBox.getItems().addAll(allCustomer);
     }
-    
+
     private void add() {
         try {
+            if (kindMotoComboBox.getSelectionModel().getSelectedIndex() == -1) {
+                throw new IllegalArgumentException("Нужно заполнить поле \"Вид мотоцикла\"");
+            }
+            if (customerComboBox.getSelectionModel().getSelectedIndex() == -1) {
+                throw new IllegalArgumentException("Нужно заполнить \"Покупатель\"");
+            }
+
             Sales sales = new Sales();
             sales.setKindMoto(kindMotoComboBox.getValue());
             sales.setCustomer(customerComboBox.getValue());
@@ -60,6 +67,12 @@ public class AddEditSalesDialog implements Initializable {
 
     void edit() {
         try {
+            if (kindMotoComboBox.getSelectionModel().getSelectedIndex() == -1) {
+                throw new IllegalArgumentException("Нужно заполнить поле \"Вид мотоцикла\"");
+            }
+            if (customerComboBox.getSelectionModel().getSelectedIndex() == -1) {
+                throw new IllegalArgumentException("Нужно заполнить \"Покупатель\"");
+            }
             sales.setKindMoto(kindMotoComboBox.getValue());
             sales.setCustomer(customerComboBox.getValue());
             sales.setPrice(Integer.parseInt(priceField.getText()));

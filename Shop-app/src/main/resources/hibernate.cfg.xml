@@ -6,7 +6,7 @@
     <session-factory>
         <!-- Set URL -->
         <property name =
-                          "hibernate.connection.url">jdbc:postgresql://localhost:8000/Artem</property>
+                          "hibernate.connection.url">jdbc:postgresql://localhost:8000/ShopApp</property>
         <!-- Set User Name -->
         <property name = "hibernate.connection.username">postgres</property>
         <!-- Set Password -->

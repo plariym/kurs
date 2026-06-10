@@ -48,7 +48,10 @@ public class Sales {
     }
 
     public void setPrice(Integer price) {
-        this.price = price;
+        if (price != null)
+            this.price = price;
+        else
+            throw new IllegalArgumentException("заполните поле "+"цена");
     }
 
     public LocalDate getDate() {
@@ -56,7 +59,10 @@ public class Sales {
     }
 
     public void setDate(LocalDate date) {
-        this.date = date;
+        if (date != null)
+            this.date = date;
+        else
+            throw new IllegalArgumentException("заполните поле "+"время");
     }
 
     @Override

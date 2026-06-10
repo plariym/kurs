@@ -64,6 +64,7 @@ public class SalesController {
     @FXML
     void btnAddSalesAction(ActionEvent event) {
         try {
+
             FXMLLoader loader = new FXMLLoader(ShopMotoApp.class.getResource("add-edit-sales-dialog.fxml"));
             Stage dialogStage = new Stage();
             dialogStage.initModality(Modality.WINDOW_MODAL);
